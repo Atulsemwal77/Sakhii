@@ -39,6 +39,7 @@ import Navbar from "./pages/Navbar";
 import TopBar from "./pages/TopBAr";
 import Footer from "./pages/Footer";
 import DonationForm from "./components/Donation";
+import Community from "./pages/Community";
 
 function App() {
   return (
@@ -56,6 +57,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/community"
+            element={
+              <ProtectedRoute>
+                <Community />
               </ProtectedRoute>
             }
           />
