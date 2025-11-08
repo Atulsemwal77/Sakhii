@@ -2,26 +2,30 @@ const express = require("express");
 const Community = require("../models/communityModel");
 const router = express.Router();
 
+// Add community
 router.post("/add", async (req, res) => {
   try {
     const community = new Community(req.body);
     await community.save();
 
-    res
-      .status(200)
-      .json({ success: true, message: "Community Added" }, community);
+    res.status(200).json({
+      success: true,
+      message: "Community Added",
+      community
+    });
   } catch (error) {
-    res
-      .status(200)
-      .json({ success: false, message: " faild to add Community " });
-    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to add Community",
+      error: error.message
+    });
   }
 });
 
-
+// Get all communities with comments
 router.get("/", async (req, res) => {
   try {
-    const getCommunity = await Community.find();
+    const getCommunity = await Community.find().populate("comments");
 
     res.status(200).json({
       success: true,
@@ -37,6 +41,5 @@ router.get("/", async (req, res) => {
     });
   }
 });
-
 
 module.exports = router;

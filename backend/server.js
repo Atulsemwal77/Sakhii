@@ -5,6 +5,7 @@ const connectDB = require("./config/database");
 const cookieParser = require("cookie-parser");
 const donation_route = require("./routes/donation")
 const community_route = require("./routes/communityRoute")
+const comment_route = require('./routes/commentRoute')
 
 dotenv.config();
 const app = express();
@@ -27,6 +28,7 @@ connectDB();
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use('/api/donations' , donation_route)
 app.use('/api/community' , community_route)
+app.use('/api/comment' , comment_route)
 
 // Home route (public)
 app.get("/", (req, res) => {
