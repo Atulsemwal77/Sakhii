@@ -40,6 +40,12 @@ import TopBar from "./pages/TopBAr";
 import Footer from "./pages/Footer";
 import DonationForm from "./components/Donation";
 import Community from "./pages/Community";
+import Yojanas from "./components/Yojanas";
+import YojanaDetail from "./components/YojanaDetails";
+import Tracker from "./components/Tracker";
+import ScrollToTop from "./components/ScrollToTop";
+
+
 
 function App() {
   return (
@@ -47,7 +53,9 @@ function App() {
       <Toaster position="top-right" />
       <BrowserRouter>
        <TopBar/>
+
        <Navbar/>
+       <ScrollToTop/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
@@ -68,7 +76,21 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/Tracker" element={
+             <ProtectedRoute>
+            <Tracker />
+            </ProtectedRoute>
+            } />
+
+          <Route path="/yojanas" element={
+             <ProtectedRoute>
+            <Yojanas />
+            </ProtectedRoute>
+            } />
+
           <Route path="/donation" element={<DonationForm/>}/>
+          <Route path="/yojana/:yojanaSlug" element={<YojanaDetail />} />
+
         </Routes>
         <Footer/>
       </BrowserRouter>
