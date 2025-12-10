@@ -44,6 +44,15 @@ import Yojanas from "./components/Yojanas";
 import YojanaDetail from "./components/YojanaDetails";
 import Tracker from "./components/Tracker";
 import ScrollToTop from "./components/ScrollToTop";
+import Education from "./components/Education";
+import ArticlesPage from "./components/Educationcompo/pages/ArticlesPage";
+import BlogsPage from "./components/Educationcompo/pages/BlogsPage";
+import FactsPage from "./components/Educationcompo/pages/FactsPage";
+import VideosPage from "./components/Educationcompo/pages/VideosPage";
+import ArticleDetailsPage from "./components/Educationcompo/pages/ArticleDetailsPage";
+import Shop from "./components/shop/Shop";
+import Cart from "./components/shop/Cart";
+
 
 
 
@@ -68,6 +77,19 @@ function App() {
               </ProtectedRoute>
             }
           />
+           <Route
+            path="/education"
+            element={
+                <Education />
+            }
+            />
+<Route path="/education/videos" element={<VideosPage />} />
+<Route path="/education/blogs" element={<BlogsPage />} />
+<Route path="/education/articles" element={<ArticlesPage />} />
+<Route path="/education/facts" element={<FactsPage />} />
+ {/* <Route path="/articles/:id" element={<ArticleDetailsPage/>} /> */}
+ <Route path="/articles/:id" element={<ArticleDetailsPage />} />
+
           <Route
             path="/community"
             element={
@@ -90,7 +112,15 @@ function App() {
 
           <Route path="/donation" element={<DonationForm/>}/>
           <Route path="/yojana/:yojanaSlug" element={<YojanaDetail />} />
-
+          <Route
+            path="/shop"
+            element={
+              <ProtectedRoute>
+                <Shop />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
         <Footer/>
       </BrowserRouter>

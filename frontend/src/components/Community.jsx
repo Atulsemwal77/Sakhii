@@ -30,11 +30,6 @@ const CommunitySection = () => {
           />
 
           {/* Top white gradient */}
-          {/* <div className="absolute top-0 left-0 w-full h-1/6 bg-gradient-to-b from-white to-transparent z-10" /> */}
-
-          {/* Bottom white gradient */}
-          {/* <div className="absolute bottom-0 left-0 w-full h-1/4 bg-gradient-to-t from-white to-transparent z-10" /> */}
-
           <div className="absolute inset-0 md:max-w-xl  flex flex-col justify-center p-8 md:p-12">
             <h3 className="text-2xl md:text-3xl font-bold mb-3">
               Join Our Community of Health Advocates
@@ -62,7 +57,6 @@ const CommunitySection = () => {
               className="absolute inset-0 w-full h-full object-cover z-10"
             />
 
-            {/* <div className="absolute bottom-0 left-0 w-full h-1/4 bg-gradient-to-t from-white to-transparent z-20" /> */}
           </div>
 
           <button className="bg-white text-[#CA3561] font-semibold px-6 py-2 rounded-full hover:bg-rose-100 transition shadow-md shadow-black">

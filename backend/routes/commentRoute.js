@@ -1,35 +1,48 @@
 const express = require("express");
-const Community = require("../models/communityModel");
+const auth = require("../middleware/authMiddleware");
 const Comment = require("../models/commentModel");
+const Community = require("../models/communityModel");
+
 const router = express.Router();
 
-// Add comment to a community
-router.post("/:communityId", async (req, res) => {
+// ADD COMMENT (PROTECTED)
+router.post("/:id", auth, async (req, res) => {
   try {
-    const { communityId } = req.params;
+    const { comment } = req.body;
+    const { id } = req.params;
 
-    // 1. Create comment
-    const comment = new Comment(req.body);
-    const savedComment = await comment.save();
-
-    // 2. Push comment into community
-    await Community.findByIdAndUpdate(
-      communityId,
-      { $push: { comments: savedComment._id } }, // plural!
-      { new: true }
-    );
-
-    res.status(201).json({
-      success: true,
-      message: "Comment added successfully",
-      comment: savedComment,
+    const cm = await Comment.create({
+      comment,
+      userId: req.user._id,
+      name: req.user.name,
     });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Error adding comment",
-      error: error.message,
+
+    await Community.findByIdAndUpdate(id, {
+      $push: { comments: cm._id },
     });
+
+    res.status(201).json({ success: true, comment: cm });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// EDIT COMMENT (ONLY CREATOR)
+router.put("/:commentId", auth, async (req, res) => {
+  try {
+    const cm = await Comment.findById(req.params.commentId);
+
+    if (!cm) return res.status(404).json({ message: "Comment not found" });
+
+    if (cm.userId.toString() !== req.user._id)
+      return res.status(403).json({ message: "Not allowed" });
+
+    cm.comment = req.body.comment;
+    await cm.save();
+
+    res.json({ success: true, comment: cm });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 });
 

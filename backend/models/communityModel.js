@@ -1,14 +1,28 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
-const communitySchema = mongoose.Schema({
-    title  : String , 
-    comments: [
+const communitySchema = new mongoose.Schema(
   {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Comment",
-  }
-]
+    title: { type: String, required: true },
 
-}, { timestamps: true })
+    ownerId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
 
-module.exports = mongoose.model("Community" , communitySchema)
+    ownerName: {
+      type: String,
+      required: true,
+    },
+
+    comments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment",
+      }
+    ]
+  },
+  { timestamps: true }
+);
+
+module.exports = mongoose.model("Community", communitySchema);
