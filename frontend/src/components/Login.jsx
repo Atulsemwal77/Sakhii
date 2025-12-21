@@ -80,7 +80,7 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import api from "../api";
 import { toast } from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { FiEye, FiEyeOff, FiMail, FiLock } from "react-icons/fi";
 
@@ -89,6 +89,9 @@ const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation()
+  const prvState = location.state?.from?.pathname || "/";
+  
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -100,7 +103,7 @@ const Login = () => {
       const res = await api.post("/auth/login", form);
       login(res.data.user); // store user in context
       toast.success("✅ Login successful!");
-      navigate("/");
+      navigate(prvState );
     } catch (err) {
       toast.error(err.response?.data?.message || "❌ Login failed");
     }

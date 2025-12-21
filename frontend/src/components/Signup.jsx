@@ -93,7 +93,7 @@
 // export default Signup;
 
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import api from "../api";
 import toast from "react-hot-toast";
 import logo from "../assets/logo2.png";
@@ -101,7 +101,8 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const Signup = () => {
   const navigate = useNavigate();
-
+  const location = useLocation()
+   const prvState = location.state?.from?.pathname || "/";
   // State for form fields
   const [form, setForm] = useState({
     name: "",
@@ -138,7 +139,7 @@ const Signup = () => {
   return (
     <>
       {/* First Signup Form */}
-      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      {/* <div className="flex justify-center items-center min-h-screen bg-gray-100">
         <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
           <h2 className="text-2xl font-bold mb-6 text-center">
             Create an Account
@@ -189,7 +190,7 @@ const Signup = () => {
             </Link>
           </p>
         </div>
-      </div>
+      </div> */}
 
       {/* Second Signup Form */}
       <div className="min-h-screen flex items-center justify-center bg-purple-50 py-12 px-4">
